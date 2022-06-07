@@ -5,11 +5,11 @@ using UnityEngine;
 public class MouseLook : MonoBehaviour
 {
     #region PUBLIC VARIABLES
-    public Transform player;
+    public Transform playerBody;
     #endregion
 
     #region PRIVATE VARIABLES
-    private float mouseSpeed = 100f;
+    private float mouseSpeed = 200f;
     private float xRotation = 0f;
     #endregion
     // Start is called before the first frame update
@@ -26,6 +26,6 @@ public class MouseLook : MonoBehaviour
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
         transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-        player.Rotate(Vector3.up * mouseX);
+        playerBody.Rotate(Vector3.up * mouseX);
     }
 }

@@ -5,60 +5,71 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    #region PUBLIC VARIABLE
-    public CharacterController controller;
-    public GameObject cherryPrefaB;
-    public float playerWalkSpeed = 6f;
-    public float playerRunSpeed = 12f;
-    public GameObject cherryPrefab;
-    public Transform thrownPosition;
-    #endregion
+    [SerializeField] private float characterSpeed;
+    [Range(0, 1)][SerializeField] private float crouchSpeed;
+    [Range(1, 2)][SerializeField] private float runSpeed;
+    [SerializeField] private float jumpForce;
+    [SerializeField] private float gravity;
+    [SerializeField] private float turnSmoothTime = 0.1f;
+    [SerializeField] private bool isGrounded;
 
-    #region PRIVATE VARIABLE
-    private Animator animator;
-    #endregion
-    // Start is called before the first frame update
-    void Start()
+
+    private CharacterController characterController;
+
+    private Vector3 jumpForceVelocity;
+
+    private float turnSmoothVelocity;
+
+    private void Awake()
     {
-       //CharacterController controller = GetComponent<CharacterController>();   
-        animator = GetComponent<Animator>();   
+        characterController = GetComponent<CharacterController>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        animator.SetTrigger("IsIdle");
-        float xInput = Input.GetAxis("Horizontal");
-        float zInput = Input.GetAxis("Vertical");
-        if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
+        isGrounded = characterController.isGrounded;
+        if (isGrounded && jumpForceVelocity.y < 0)
         {
-            animator.SetTrigger("IsWalking");
-            PlayerWalk(xInput, zInput);
-        }
-
-        if (Input.GetMouseButton(0))
-        {
-            animator.SetTrigger("IsThrowing");
+            jumpForceVelocity.y = 0f;
         }
     }
 
-    private void PlayerWalk(float xInput, float zInput)
+    public void Move(Vector3 velocity,bool isWalking, bool isRunning, bool isJumping)
     {
-        Vector3 move = transform.right * xInput + transform.forward * zInput;
-        controller.Move(move * playerWalkSpeed * Time.deltaTime);
+        velocity = transform.forward * velocity.z + transform.right * velocity.x;
+
+        if (isWalking) 
+            characterController.Move(velocity * characterSpeed * crouchSpeed * Time.deltaTime);
+
+       
+        else
+            characterController.Move(velocity * 2 * characterSpeed * Time.deltaTime);
+
+        Jump(isJumping);
+    }
+
+    private void Jump(bool isJumping)
+    {
+        if (isJumping && isGrounded)
+        {
+            jumpForceVelocity.y = jumpForce * Time.deltaTime;
+        }
+
+        jumpForceVelocity.y += gravity * Time.deltaTime;
+        characterController.Move(jumpForceVelocity * Time.deltaTime);
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "CollectedCherry")
+        if (collision.gameObject.CompareTag("CollectedCherry"))
         {
-            Debug.Log("It's a collected cherry");
-            animator.SetTrigger("IsCollecting");
+            gameObject.GetComponent<AnimationScript>().CollectingCherry();
+            Destroy(collision.gameObject);
         }
     }
 
-    public void CherryThrown()
+    public bool Grounded()
     {
-        Instantiate(cherryPrefab, thrownPosition.position, Quaternion.identity);
+        return isGrounded;
     }
 }

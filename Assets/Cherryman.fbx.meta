@@ -6,12 +6,7 @@ ModelImporter:
   - first:
       74: -203655887218126122
     second: mixamo.com
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Peasant_Man_02
-    second: {fileID: 2100000, guid: 2e87356dbff80fe419857b7543e7c12c, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0

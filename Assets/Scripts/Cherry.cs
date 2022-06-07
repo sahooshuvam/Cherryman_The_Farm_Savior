@@ -7,15 +7,15 @@ public class Cherry : MonoBehaviour
     Rigidbody rb;
     public float speed;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         rb = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void MoveDirection(Vector3 CherryDirections,Vector3 hitPosition)
     {
-        rb.velocity = Vector3.forward * speed;
+
+        transform.LookAt(hitPosition);
+        rb.velocity = transform.forward * speed;
     }
 }

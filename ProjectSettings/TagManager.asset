@@ -6,6 +6,7 @@ TagManager:
   tags:
   - CollectedCherry
   - Cherry
+  - Spider
   layers:
   - Default
   - TransparentFX
