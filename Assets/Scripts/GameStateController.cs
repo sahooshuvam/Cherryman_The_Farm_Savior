@@ -146,6 +146,7 @@ public class GameStateController : MonoBehaviour
         TurnOffAllTriggerAnim();
         anim.SetBool("IsDieing", true);
         state = STATE.DEAD;
+        Destroy(this.gameObject,4f);
     }
 
 
