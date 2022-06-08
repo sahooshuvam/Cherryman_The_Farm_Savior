@@ -4,18 +4,91 @@ using UnityEngine;
 
 public class Cherry : MonoBehaviour
 {
-    Rigidbody rb;
-    public float speed;
+    private float disappearAfterTime = 3;
+    private float disappearTimer = 0;
 
-    private void Awake()
+    private bool isActive = false;
+    private bool isKilled = false;
+
+    //  private MeshRenderer meshRenderer;
+
+    private Vector3 direction;
+    private Vector3 startPosition;
+
+    private float movementSpeed = 1;
+
+    private Vector3 targetPosition;
+
+    private float distanceToTarget;
+    private float movementValue;
+
+    void Update()
     {
-        rb = GetComponent<Rigidbody>();
+        if (isActive) // Only update stuff if we're alive
+        {
+            disappearTimer += Time.deltaTime; // Increase disappear timer
+            if (disappearTimer > disappearAfterTime) // If we're alive too long, get rekt
+            {
+                disappearTimer = 0; // Reset timer
+                isActive = false; // Is not active anymore
+                                  //        meshRenderer.enabled = false; // Disable meshrender so it's invisible
+                Destroy(this.gameObject);
+            }
+
+
+            // 1/distanceToTarget is the calculation to move 1 unit per second, movementspeed defines how many units per second you want to move
+            movementValue += (1 / distanceToTarget * movementSpeed) * Time.deltaTime;
+            if (movementValue > 1)
+            {
+                movementValue = 1;
+            }
+            Move();
+
+        }
     }
 
-    public void MoveDirection(Vector3 CherryDirections,Vector3 hitPosition)
+    private void OnCollisionEnter(Collision collision)
     {
+        if (collision.gameObject.CompareTag("Spider") && !isKilled)
+        {
+            isKilled = true;
+            Debug.Log("Collided With Spider");
+            Debug.Log(collision.gameObject.tag);
+            GameObject temp = collision.gameObject;
+            temp.GetComponent<GameStateController>().KillSpider();
+            GameObject.Find("GameManager").GetComponent<GameManager>().ScoreUpdate(10);
+            GetComponent<Rigidbody>().useGravity = true;
 
-        transform.LookAt(hitPosition);
-        rb.velocity = transform.forward * speed;
+            //GameObject.FindGameObjectWithTag("Spider").GetComponent<GameStateController>().KillSpider();
+        }
+    }
+
+    void Move()
+    {
+        // lerp goes from 0 to 1, 0 is startPosition, 1 is the targets position;
+        transform.position = Vector3.Lerp(startPosition, targetPosition, movementValue);
+    }
+
+    public void Fire(Vector3 target, Vector3 spawnPosition, Vector3 Direction, float speed)
+    {
+        if (isActive) // If we're active, just return so we don't execute any code
+            return;
+
+        isActive = true; // Set active
+        disappearTimer = 0; // Reset timer just in case it's not reset
+        transform.position = spawnPosition; // set spawn position
+                                            // meshRenderer.enabled = true; // Enable meshrender so it's visible
+        movementSpeed = speed; // Units per second
+        direction = Direction.normalized; // Normalize the direction
+        targetPosition = target; // Set target transform - Can be null for continous movement without target
+        distanceToTarget = Vector3.Distance(targetPosition, transform.position);
+        startPosition = spawnPosition;
+        movementValue = 0;
+    }
+
+
+    public bool GetIsActive()
+    {
+        return isActive;
     }
 }

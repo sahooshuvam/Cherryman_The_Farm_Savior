@@ -18,7 +18,6 @@ public class CherryManager : MonoBehaviour
             if (NavMesh.SamplePosition(randomPoint, out hit, 10f, NavMesh.AllAreas))
             {
                 Vector3 result = hit.position;
-                //print("Result=" +result);
                 Instantiate(Collectedcherry, result, Quaternion.identity);
             }
             else

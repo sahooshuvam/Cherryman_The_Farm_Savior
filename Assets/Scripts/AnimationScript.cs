@@ -42,6 +42,6 @@ public class AnimationScript : MonoBehaviour
 
     public void Die()
     {
-        animator.SetBool("Die",true);
+        animator.SetBool("IsDie",true);
     }
 }

@@ -15,6 +15,8 @@ public class PlayerMovement : MonoBehaviour
 
 
     private CharacterController characterController;
+    
+   
 
     private Vector3 jumpForceVelocity;
 
@@ -64,10 +66,18 @@ public class PlayerMovement : MonoBehaviour
         if (collision.gameObject.CompareTag("CollectedCherry"))
         {
             gameObject.GetComponent<AnimationScript>().CollectingCherry();
+            GameObject.Find("GameManager").GetComponent<GameManager>().CherryUpdate(5);
+            Debug.Log("Collecting Cherry Animation is happing");
             Destroy(collision.gameObject);
         }
     }
 
+    public void TakeHit()
+    {
+        int damageAmount = -5;
+        GameObject.Find("GameManager").GetComponent<GameManager>().healthUpdate(damageAmount);
+
+    }
     public bool Grounded()
     {
         return isGrounded;

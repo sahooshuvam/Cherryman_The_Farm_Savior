@@ -4,28 +4,31 @@ using UnityEngine;
 
 public class MouseLook : MonoBehaviour
 {
-    #region PUBLIC VARIABLES
-    public Transform playerBody;
-    #endregion
+    [SerializeField] Transform CameraOrigin;
+    [SerializeField] float turnSpeed;
+    [SerializeField] float verticalMinRotation;
+    [SerializeField] float verticalMaxRotation;
 
-    #region PRIVATE VARIABLES
-    private float mouseSpeed = 200f;
-    private float xRotation = 0f;
-    #endregion
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void FixedUpdate()
     {
-        float mouseX = Input.GetAxis("Mouse X") * mouseSpeed * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * mouseSpeed * Time.deltaTime;
-        xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
-        transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-        playerBody.Rotate(Vector3.up * mouseX);
+        Vector2 mouseInput = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
+        Vector3 currentRotation = transform.eulerAngles;
+        currentRotation.y += mouseInput.x * turnSpeed;
+        transform.rotation = Quaternion.Euler(currentRotation);
+
+        if (CameraOrigin != null)
+        {
+            currentRotation = CameraOrigin.localRotation.eulerAngles;
+            currentRotation.x -= mouseInput.y * turnSpeed;
+            if (currentRotation.x > 180)
+                currentRotation.x -= 360;
+            currentRotation.x = Mathf.Clamp(currentRotation.x, verticalMinRotation, verticalMaxRotation);
+            CameraOrigin.localRotation = Quaternion.Euler(currentRotation);
+        }
     }
 }

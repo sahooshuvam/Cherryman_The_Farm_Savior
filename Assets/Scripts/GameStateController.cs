@@ -44,7 +44,6 @@ public class GameStateController : MonoBehaviour
                 {
                     float randValueX = transform.position.x + Random.Range(-5f, 5f);
                     float randValueZ = transform.position.z + Random.Range(-5f, 5f);
-                   // float ValueY = Terrain.activeTerrain.SampleHeight(new Vector3(randValueX, 0f, randValueZ));
                     Vector3 destination = new Vector3(randValueX, transform.position.y, randValueZ);
                     agent.SetDestination(destination);
                     agent.stoppingDistance = 0f;
@@ -96,7 +95,7 @@ public class GameStateController : MonoBehaviour
                 }
                 TurnOffAllTriggerAnim();
                 anim.SetBool("IsAttacking", true);
-                transform.LookAt(target.transform.position);//Zombies should look at Player
+                transform.LookAt(target.transform.position);//Spider should look at  The Player
                 if (DistanceToPlayer() > agent.stoppingDistance)
                 {
                     state = STATE.CHASE;
@@ -142,22 +141,21 @@ public class GameStateController : MonoBehaviour
             return false;
     }
 
-    public void KillZombie()
+    public void KillSpider()
     {
         TurnOffAllTriggerAnim();
-        anim.SetBool("isDead", true);
+        anim.SetBool("IsDieing", true);
         state = STATE.DEAD;
     }
 
 
-    //public void DamagePlayer()
-    //{
-    //    int damageAmount = 5;
-    //    if (target != null)
-    //    {
-    //        //target.GetComponent<PlayerMovement>().TakeHit(damageAmount);//create a method Random sound when player takes damage
-    //    }
-    //}
+    public void DamagePlayer()
+    {
+        if (target != null)
+        {
+            target.GetComponent<PlayerMovement>().TakeHit();//create a method Random sound when player takes damage
+        }
+    }
 }
 
 public class GameStart

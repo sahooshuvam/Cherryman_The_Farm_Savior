@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     private new AnimationScript animation;
     public Transform CherrySpawnPosition;
     public GameObject cherryPrefab;
+    private CherrySpawner cherrySpawner;
 
 
 
@@ -60,6 +61,7 @@ public class PlayerController : MonoBehaviour
     {
         playerMovement = GetComponent<PlayerMovement>();
         animation = GetComponent<AnimationScript>();
+        cherrySpawner = GetComponent<CherrySpawner>();
     }
 
     private void Update()
@@ -94,48 +96,16 @@ public class PlayerController : MonoBehaviour
             animation.Jump();
         }
 
-        ray.origin = raycastOrigin.position;
-        ray.direction = raycastDestination.position - raycastOrigin.position;
-
-        Debug.DrawRay(ray.origin, ray.direction, Color.red);
-
-        if (Physics.Raycast(ray, out hit))
+        if (Input.GetKeyDown(KeyCode.LeftControl))
         {
-            if (hit.collider.tag == "Spider")
-            {
-                Debug.Log(hit.collider.name);
-                GameObject gameObject = Instantiate(cherryPrefab, ray.origin, Quaternion.identity);
-                gameObject.GetComponent<Cherry>().MoveDirection(GetTargetPosition(),hit.transform.position);
-
-            }
-        }
-
-
-        if (Input.GetButton("Fire1"))
-        {
-            animation.Attack();
-            SpiderGotHit();
+            cherrySpawner.Fire();
+            GameObject.Find("GameManager").GetComponent<GameManager>().CherryUpdate(-1);
         }
     }
-
-    private void SpiderGotHit()
-    {
-        Ray ray;
-        RaycastHit hitInfo;
-        if (Physics.Raycast(CherrySpawnPosition.position, CherrySpawnPosition.forward, out hitInfo, 100f))
+        private void FixedUpdate()
         {
-            GameObject hitInsect = hitInfo.collider.gameObject;
-            if (hitInsect.CompareTag("Spider"))
-            {
-                Debug.Log("Its Hit Insect");
-            }
+            playerMovement.Move(velocity.normalized, isWalking, isRunning, isJumping);
+            isJumping = false;
         }
-    }
-
-    private void FixedUpdate()
-    {
-        playerMovement.Move(velocity.normalized, isWalking, isRunning, isJumping) ;
-        isJumping = false;
-    }
-
+    
 }

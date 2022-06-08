@@ -12,13 +12,13 @@ public class ObjectPool : MonoBehaviour
     Vector3 result;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
+        number = Random.Range(10,15);
         if (spawnOnStart)
         {
             SpawnInsect();
         }
-
     }
 
     private void SpawnInsect()
