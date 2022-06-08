@@ -10,6 +10,7 @@ public class GameStateController : MonoBehaviour
     NavMeshAgent agent;
     public float walkingSpeed;
     public float runningSpeed;
+    public GameObject effect;
     public enum STATE { IDLE, WONDER, CHASE, ATTACK, DEAD };
     public STATE state = STATE.IDLE;//default state
     // Start is called before the first frame update
@@ -147,6 +148,10 @@ public class GameStateController : MonoBehaviour
         anim.SetBool("IsDieing", true);
         state = STATE.DEAD;
         Destroy(this.gameObject,4f);
+        GameObject temp = Instantiate(effect,this.transform.position,Quaternion.identity);
+        //this.transform.position = temp.transform.position;
+        Destroy(temp, 2f);
+        Destroy(this.gameObject,3f);
     }
 
 
