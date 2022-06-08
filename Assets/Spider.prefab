@@ -1212,10 +1212,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.3
-  m_Height: 1
+  m_Radius: 0.18
+  m_Height: 1.01
   m_Direction: 2
-  m_Center: {x: -0, y: 0.3, z: -0.1}
+  m_Center: {x: 4.456307e-10, y: 0.2, z: -0.10000002}
 --- !u!195 &8726450384544623126
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1254,6 +1254,7 @@ MonoBehaviour:
   target: {fileID: 0}
   walkingSpeed: 1
   runningSpeed: 2
+  effect: {fileID: 4007085254674836723, guid: 20fafb81305f7cd45b35b8c84d199b9d, type: 3}
   state: 0
 --- !u!114 &1688243570737113975
 MonoBehaviour:
