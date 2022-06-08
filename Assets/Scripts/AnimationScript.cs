@@ -27,7 +27,10 @@ public class AnimationScript : MonoBehaviour
 
     public void Jump()
     {
+        Debug.Log("Before Trigger");
         animator.SetTrigger("IsJumping");
+        Debug.Log("After Trigger");
+
     }
 
     public void Attack()

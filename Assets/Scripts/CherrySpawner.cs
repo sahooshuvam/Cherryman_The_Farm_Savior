@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class CherrySpawner : MonoBehaviour
 {
-    //[SerializeField] private ParticleSystem muzzleFlash;
-    //[SerializeField] private ParticleSystem projectileImpect;
-    //[SerializeField] private GameObject muzzleFlash;
     [SerializeField] private GameObject cherryPrefab;
     [SerializeField] private Transform raycastOrigin;
     [SerializeField] private Transform raycastDestination;

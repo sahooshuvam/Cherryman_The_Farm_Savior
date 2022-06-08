@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private PlayerMovement playerMovement;
-    private new AnimationScript animation;
+    private AnimationScript animation;
     public Transform CherrySpawnPosition;
     public GameObject cherryPrefab;
     private CherrySpawner cherrySpawner;
@@ -35,28 +35,7 @@ public class PlayerController : MonoBehaviour
     private RaycastHit hit;
     private Ray ray;
 
-    private Vector3 GetTargetPosition()
-    {
-        Vector3 targetDirection = targetTransform - raycastOrigin.position;
-        Vector3 aimDirection = raycastOrigin.forward;
-        float blendOut = 0.0f;
-
-        float targetAngle = Vector3.Angle(targetDirection, aimDirection);
-        if (targetAngle > angleLimit)
-        {
-            blendOut += (targetAngle - angleLimit) / 50.0f;
-        }
-
-        float targetDistance = targetDirection.magnitude;
-        if (targetDistance < distanceLimit)
-        {
-            blendOut += distanceLimit - targetDistance;
-        }
-
-        Vector3 direction = Vector3.Slerp(targetDirection, aimDirection, blendOut);
-        return raycastOrigin.position + direction;
-    }
-
+ 
     private void Awake()
     {
         playerMovement = GetComponent<PlayerMovement>();
@@ -98,7 +77,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
-            cherrySpawner.Fire();
+            animation.Attack();
             GameObject.Find("GameManager").GetComponent<GameManager>().CherryUpdate(-1);
         }
     }

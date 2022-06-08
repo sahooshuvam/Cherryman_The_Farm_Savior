@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float characterSpeed;
-    [Range(0, 1)][SerializeField] private float crouchSpeed;
+    [Range(0, 1)][SerializeField] private float walkSpeed;
     [Range(1, 2)][SerializeField] private float runSpeed;
     [SerializeField] private float jumpForce;
     [SerializeField] private float gravity;
@@ -15,16 +15,14 @@ public class PlayerMovement : MonoBehaviour
 
 
     private CharacterController characterController;
-    
-   
 
     private Vector3 jumpForceVelocity;
 
-    private float turnSmoothVelocity;
 
     private void Awake()
     {
         characterController = GetComponent<CharacterController>();
+
     }
 
     private void Update()
@@ -36,16 +34,13 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void Move(Vector3 velocity,bool isWalking, bool isRunning, bool isJumping)
+    public void Move(Vector3 velocity, bool isCrouching, bool isRunning, bool isJumping)
     {
         velocity = transform.forward * velocity.z + transform.right * velocity.x;
 
-        if (isWalking) 
-            characterController.Move(velocity * characterSpeed * crouchSpeed * Time.deltaTime);
-
-       
-        else
-            characterController.Move(velocity * 2 * characterSpeed * Time.deltaTime);
+        if (isCrouching) characterController.Move(velocity * characterSpeed * walkSpeed * Time.deltaTime);
+        else if (isCrouching) characterController.Move(velocity * characterSpeed * runSpeed * Time.deltaTime);
+        else characterController.Move(velocity * characterSpeed * Time.deltaTime);
 
         Jump(isJumping);
     }
@@ -60,7 +55,6 @@ public class PlayerMovement : MonoBehaviour
         jumpForceVelocity.y += gravity * Time.deltaTime;
         characterController.Move(jumpForceVelocity * Time.deltaTime);
     }
-
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("CollectedCherry"))

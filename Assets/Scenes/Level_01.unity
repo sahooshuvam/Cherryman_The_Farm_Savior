@@ -1483,12 +1483,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterSpeed: 6
-  crouchSpeed: 0.5
+  walkSpeed: 0.51
   runSpeed: 2
   jumpForce: 200
   gravity: -9.81
   turnSmoothTime: 0.1
-  isGrounded: 0
+  isGrounded: 1
 --- !u!1001 &545268645
 PrefabInstance:
   m_ObjectHideFlags: 0

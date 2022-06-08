@@ -1483,7 +1483,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterSpeed: 6
-  crouchSpeed: 0.5
+  walkSpeed: 0.51
   runSpeed: 2
   jumpForce: 200
   gravity: -9.81
@@ -7212,6 +7212,36 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2061151290}
   m_Mesh: {fileID: -4330590146252051784, guid: d678656e83613a74c8cd5d9a5b0965ed, type: 3}
+--- !u!1 &2112399087
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2112399088}
+  m_Layer: 0
+  m_Name: SpawnHere
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2112399088
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2112399087}
+  m_LocalRotation: {x: -0.0067306566, y: 0.015770279, z: 0.14328897, w: -0.9895324}
+  m_LocalPosition: {x: -0.35, y: -0.41, z: -0.51}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3803487097598685426}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6263586592440746
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -15144,6 +15174,7 @@ Transform:
   m_Children:
   - {fileID: 2757530957247800486}
   - {fileID: 973595336}
+  - {fileID: 2112399088}
   m_Father: {fileID: 7398547592142953337}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

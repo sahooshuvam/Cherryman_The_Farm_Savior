@@ -58,8 +58,6 @@ public class Cherry : MonoBehaviour
             temp.GetComponent<GameStateController>().KillSpider();
             GameObject.Find("GameManager").GetComponent<GameManager>().ScoreUpdate(10);
             GetComponent<Rigidbody>().useGravity = true;
-
-            //GameObject.FindGameObjectWithTag("Spider").GetComponent<GameStateController>().KillSpider();
         }
     }
 
