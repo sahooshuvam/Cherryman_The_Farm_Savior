@@ -48,20 +48,20 @@ public class PlayerController : MonoBehaviour
         velocity.x = Input.GetAxis("Horizontal");
         velocity.z = Input.GetAxis("Vertical");
 
-        if (velocity.magnitude < 0.1 && !isIdle)
+        if (velocity.magnitude < 0.1 && !isIdle) //By default Cherryman is in Idle 
         {
             animation.Idle();
             isIdle = true;
             isWalking = false;
         }
-        else if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
+        else if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0) // For Cherryman Walking
         {
             animation.Walk();
             isIdle = false;
             isWalking = true;
         }
 
-        if (Input.GetKeyDown(KeyCode.R) && !isRunning)
+        if (Input.GetKeyDown(KeyCode.R) && !isRunning) // For Cherryman Running 
         {
             isIdle = false;
             isWalking = false;
@@ -69,13 +69,13 @@ public class PlayerController : MonoBehaviour
             animation.Run();
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && playerMovement.Grounded())
+        if (Input.GetKeyDown(KeyCode.Space) && playerMovement.Grounded()) // Cherryman Jump
         {
             isJumping = true;
             animation.Jump();
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftControl))
+        if (Input.GetMouseButtonDown(0)) // on Mouse Left click Cherry will Spawn
         {
             animation.Attack();
             GameObject.Find("GameManager").GetComponent<GameManager>().CherryUpdate(-1);

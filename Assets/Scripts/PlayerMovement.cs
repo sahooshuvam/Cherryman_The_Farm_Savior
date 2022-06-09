@@ -5,16 +5,16 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private float characterSpeed;
-    [Range(0, 1)][SerializeField] private float walkSpeed;
-    [Range(1, 2)][SerializeField] private float runSpeed;
-    [SerializeField] private float jumpForce;
-    [SerializeField] private float gravity;
+    [SerializeField] private float characterSpeed; // 
+    [Range(0, 1)][SerializeField] private float walkSpeed; // cherryman walking speed
+    [Range(1, 2)][SerializeField] private float runSpeed; // cherryman Running speed 
+    [SerializeField] private float jumpForce; // cherryman jumping force
+    [SerializeField] private float gravity; // cherryman gravity 
     [SerializeField] private float turnSmoothTime = 0.1f;
     [SerializeField] private bool isGrounded;
 
 
-    private CharacterController characterController;
+    private CharacterController characterController; // Taking the reference of the instances
 
     private Vector3 jumpForceVelocity;
 
@@ -34,12 +34,12 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void Move(Vector3 velocity, bool isCrouching, bool isRunning, bool isJumping)
+    public void Move(Vector3 velocity, bool isWalking, bool isRunning, bool isJumping)
     {
         velocity = transform.forward * velocity.z + transform.right * velocity.x;
 
-        if (isCrouching) characterController.Move(velocity * characterSpeed * walkSpeed * Time.deltaTime);
-        else if (isCrouching) characterController.Move(velocity * characterSpeed * runSpeed * Time.deltaTime);
+        if (isWalking) characterController.Move(velocity * characterSpeed * walkSpeed * Time.deltaTime);
+        else if (isWalking) characterController.Move(velocity * characterSpeed * runSpeed * Time.deltaTime);
         else characterController.Move(velocity * characterSpeed * Time.deltaTime);
 
         Jump(isJumping);

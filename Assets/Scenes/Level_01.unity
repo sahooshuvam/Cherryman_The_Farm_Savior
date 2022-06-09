@@ -2493,7 +2493,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 666320270}
   m_LocalRotation: {x: -0.10724451, y: -0.87582946, z: 0.22832273, w: -0.41144887}
-  m_LocalPosition: {x: 40.82629, y: 2.977, z: 152.38295}
+  m_LocalPosition: {x: 40.82629, y: 2.951, z: 152.38295}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 767099309}
@@ -3989,7 +3989,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1196097608}
   m_LocalRotation: {x: 0, y: 0.9868134, z: 0, w: 0.1618621}
-  m_LocalPosition: {x: 40.82629, y: 2.977, z: 152.38295}
+  m_LocalPosition: {x: 40.82629, y: 2.951, z: 152.38295}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1769889467819796469}
@@ -8208,7 +8208,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919132147824347205}
   m_LocalRotation: {x: 0, y: 0.99904823, z: 0, w: 0.0436195}
-  m_LocalPosition: {x: 43.5, y: 1.169, z: 147}
+  m_LocalPosition: {x: 43.5, y: 1.143, z: 147}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 572617753835230710}
@@ -9025,7 +9025,7 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 1.8
+  m_Height: 1.7
   m_Radius: 0.5
   m_SlopeLimit: 45
   m_StepOffset: 0

@@ -11,7 +11,7 @@ public class CherrySpawner : MonoBehaviour
 
     [SerializeField] private float fireRate = 0.25f;
     [SerializeField] private float yRotate = 0.25f;
-    private float nextFire;
+    private float nextFire;//When Next Fire Will Happend
 
 
     private new AnimationScript animation;
@@ -28,17 +28,17 @@ public class CherrySpawner : MonoBehaviour
     {
         if (Time.time > nextFire)
         {
-            nextFire = Time.time + fireRate;
-            ray.origin = raycastOrigin.position;
-            ray.direction = raycastDestination.position - raycastOrigin.position;
+            nextFire = Time.time + fireRate;// After Some Time next fire will Happen
+            ray.origin = raycastOrigin.position; // Raycast Origin position
+            ray.direction = raycastDestination.position - raycastOrigin.position;// Where Raycast will hit
 
             if (Physics.Raycast(ray, out hit))
             {
-                if (hit.collider.gameObject != this.gameObject)
+                if (hit.collider.gameObject != this.gameObject) // If raycast will hit any object other then cherryman
                 {
                     AttackAnimation();
-                    GameObject cherryTemp = Instantiate(cherryPrefab, raycastOrigin.position, raycastOrigin.rotation);
-                    cherryTemp.GetComponent<Cherry>().Fire(hit.point, raycastOrigin.position, transform.forward, 10f);
+                    GameObject cherryTemp = Instantiate(cherryPrefab, raycastOrigin.position, raycastOrigin.rotation);// Instantiate cherry prefab
+                    cherryTemp.GetComponent<Cherry>().Fire(hit.point, raycastOrigin.position, transform.forward, 10f); // Now It will be fire in that POsition
                 }
             }
         }
