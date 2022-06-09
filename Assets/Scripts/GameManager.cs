@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
         Debug.Log(cherryman.tag);
     }
 
-    public void ScoreUpdate(int scoreValue)
+    public void ScoreUpdate(int scoreValue) // This Method is for Score Updatation
     {
 
         score = score + scoreValue;
@@ -39,11 +39,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void healthUpdate(int healthValue)
+    public void healthUpdate(int healthValue) //This method is for health Updatation
     {
         health = Mathf.Clamp(health + healthValue, 0, maxHealth);
         healthText.text = health.ToString();
-        if (health <= 0)
+        if (health <= 0) // If Cherryman health is 0 in that time Game over scene is activated
         {
             Debug.Log("Now My health is Zero");
             cherryman.GetComponent<AnimationScript>().Die();
@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void CherryUpdate(int cherryValue)
+    public void CherryUpdate(int cherryValue) //This method is for collecting cherry and Throwing cherry Updatation
     {
         cherryCount = Mathf.Clamp(cherryCount + cherryValue, 0, maxCherryCount);
         cherryCountText.text = cherryCount.ToString();

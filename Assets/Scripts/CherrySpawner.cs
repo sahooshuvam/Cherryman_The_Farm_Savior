@@ -37,8 +37,8 @@ public class CherrySpawner : MonoBehaviour
                 if (hit.collider.gameObject != this.gameObject)
                 {
                     AttackAnimation();
-                    GameObject projectileTemp = Instantiate(cherryPrefab, raycastOrigin.position, raycastOrigin.rotation);
-                    projectileTemp.GetComponent<Cherry>().Fire(hit.point, raycastOrigin.position, transform.forward, 10f);
+                    GameObject cherryTemp = Instantiate(cherryPrefab, raycastOrigin.position, raycastOrigin.rotation);
+                    cherryTemp.GetComponent<Cherry>().Fire(hit.point, raycastOrigin.position, transform.forward, 10f);
                 }
             }
         }

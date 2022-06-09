@@ -31,7 +31,6 @@ public class Cherry : MonoBehaviour
             {
                 disappearTimer = 0; // Reset timer
                 isActive = false; // Is not active anymore
-                                  //        meshRenderer.enabled = false; // Disable meshrender so it's invisible
                 Destroy(this.gameObject);
             }
 
