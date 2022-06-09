@@ -11,12 +11,14 @@ public class UIPart : MonoBehaviour
     public GameObject instructionPanel1;
     public GameObject instructionPanel2;
     public GameObject instructionPanel3;
+    public GameObject aboutTheGame;
+    public GameObject menuPanel;
+    public GameObject settingPanel;
     public GameObject loadImage;
-    public GameObject quitGame;
     //public Button start;
     void Start()
     {
-      // start.onClick.AddListener(Instruction1);
+      
     }
 
     public void Instruction1()
@@ -46,9 +48,19 @@ public class UIPart : MonoBehaviour
         Destroy(loadImage, 6f);
         SceneManager.LoadScene(1);
     }
-    public void QuitPanel()
+    public void AboutTheGame()
     {
-        quitGame.SetActive(true);
+        aboutTheGame.SetActive(true);
+    }
+    public void BackToMenu()
+    {
+        aboutTheGame.SetActive(false);
+        settingPanel.SetActive(false);
+        menuPanel.SetActive(true);
+    }
+    public void Settings()
+    {
+        settingPanel.SetActive(true);
     }
     void Update()
     {
