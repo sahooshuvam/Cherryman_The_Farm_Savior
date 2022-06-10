@@ -5,18 +5,17 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    #region PRIVATE VARIABLE
     [SerializeField] private float characterSpeed; // 
     [Range(0, 1)][SerializeField] private float walkSpeed; // cherryman walking speed
-    [Range(1, 2)][SerializeField] private float runSpeed; // cherryman Running speed 
     [SerializeField] private float jumpForce; // cherryman jumping force
+    [Range(1, 2)][SerializeField] private float runSpeed; // cherryman Running speed 
     [SerializeField] private float gravity; // cherryman gravity 
     [SerializeField] private float turnSmoothTime = 0.1f;
     [SerializeField] private bool isGrounded;
-
-
     private CharacterController characterController; // Taking the reference of the instances
-
     private Vector3 jumpForceVelocity;
+    #endregion
 
 
     private void Awake()
@@ -33,28 +32,6 @@ public class PlayerMovement : MonoBehaviour
             jumpForceVelocity.y = 0f;
         }
     }
-
-    public void Move(Vector3 velocity, bool isWalking, bool isRunning, bool isJumping)
-    {
-        velocity = transform.forward * velocity.z + transform.right * velocity.x;
-
-        if (isWalking) characterController.Move(velocity * characterSpeed * walkSpeed * Time.deltaTime);
-        else if (isWalking) characterController.Move(velocity * characterSpeed * runSpeed * Time.deltaTime);
-        else characterController.Move(velocity * characterSpeed * Time.deltaTime);
-
-        Jump(isJumping);
-    }
-
-    private void Jump(bool isJumping)
-    {
-        if (isJumping && isGrounded)
-        {
-            jumpForceVelocity.y = jumpForce * Time.deltaTime;
-        }
-
-        jumpForceVelocity.y += gravity * Time.deltaTime;
-        characterController.Move(jumpForceVelocity * Time.deltaTime);
-    }
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("CollectedCherry"))
@@ -64,6 +41,18 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("Collecting Cherry Animation is happing");
             Destroy(collision.gameObject);
         }
+    }
+
+    #region PUBLIC METHODS
+    public void Move(Vector3 velocity, bool isWalking, bool isRunning, bool isJumping)
+    {
+        velocity = transform.forward * velocity.z + transform.right * velocity.x;
+
+        if (isWalking) characterController.Move(velocity * characterSpeed * walkSpeed * Time.deltaTime);
+        else if (isWalking) characterController.Move(velocity * characterSpeed * runSpeed * Time.deltaTime);
+        else characterController.Move(velocity * characterSpeed * Time.deltaTime);
+
+        Jump(isJumping);
     }
 
     public void TakeHit()
@@ -76,4 +65,22 @@ public class PlayerMovement : MonoBehaviour
     {
         return isGrounded;
     }
+
+    #endregion
+
+    #region PRIVATE METHODS
+
+    private void Jump(bool isJumping)
+    {
+        if (isJumping && isGrounded)
+        {
+            jumpForceVelocity.y = jumpForce * Time.deltaTime;
+        }
+
+        jumpForceVelocity.y += gravity * Time.deltaTime;
+        characterController.Move(jumpForceVelocity * Time.deltaTime);
+    }
+
+    #endregion
+
 }

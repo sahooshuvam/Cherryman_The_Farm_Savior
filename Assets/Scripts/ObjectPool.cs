@@ -17,13 +17,14 @@ public class ObjectPool : MonoBehaviour
         number = Random.Range(10,15); // taking the random value
         if (spawnOnStart)
         {
-            SpawnInsect(); // Spawning of the spider
+            SpawnInsect(number); // Spawning of the spider
         }
     }
 
-    private void SpawnInsect()
+    public void SpawnInsect(int number)
     {
-        for (int i = 0; i < number; i++) 
+        int count = number;
+        for (int i = 0; i < count; i++) 
         {
             Vector3 randomPoint = transform.position + Random.insideUnitSphere * spawnRadius; // within a radius we spawning the spider 
             NavMeshHit hit;

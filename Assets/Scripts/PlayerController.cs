@@ -5,37 +5,31 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private PlayerMovement playerMovement;
-    private AnimationScript animation;
+    #region PUBLIC VARIABLE
     public Transform CherrySpawnPosition;
     public GameObject cherryPrefab;
+    public int iteration = 10;
+    [Range(0, 1)] public float weight = 1.0f;
+    public float distanceLimit = 1.5f;
+    public float angleLimit = 90.0f;
+    #endregion
+
+    #region PRIVATE VARIABLE
+    private PlayerMovement playerMovement;
+    private AnimationScript animation;
     private CherrySpawner cherrySpawner;
-
-
-
     private Vector3 velocity;
-
+    private Vector3 targetTransform;
+    private Ray ray;
+    private RaycastHit hit;
     private bool isIdle = false;
     private bool isWalking = false;
     private bool isRunning = false;
     private bool isJumping = false; 
-    
     [SerializeField] private Transform raycastOrigin;
     [SerializeField] private Transform raycastDestination;
+    #endregion
 
-    private Vector3 targetTransform;
-
-    public int iteration = 10;
-    [Range(0, 1)]
-    public float weight = 1.0f;
-
-    public float angleLimit = 90.0f;
-    public float distanceLimit = 1.5f;
-
-    private RaycastHit hit;
-    private Ray ray;
-
- 
     private void Awake()
     {
         playerMovement = GetComponent<PlayerMovement>();
