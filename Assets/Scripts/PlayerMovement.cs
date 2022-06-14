@@ -37,7 +37,8 @@ public class PlayerMovement : MonoBehaviour
         if (collision.gameObject.CompareTag("CollectedCherry"))
         {
             gameObject.GetComponent<AnimationScript>().CollectingCherry();
-            GameObject.Find("GameManager").GetComponent<GameManager>().CherryUpdate(5);
+           // GameObject.Find("GameManager").GetComponent<GameManager>().CherryUpdate(5);
+            GameManager.Instance.CherryUpdate(5);
             Debug.Log("Collecting Cherry Animation is happing");
             Destroy(collision.gameObject);
         }
@@ -58,8 +59,8 @@ public class PlayerMovement : MonoBehaviour
     public void TakeHit()
     {
         int damageAmount = -5;
-        GameObject.Find("GameManager").GetComponent<GameManager>().healthUpdate(damageAmount);
-
+        //GameObject.Find("GameManager").GetComponent<GameManager>().healthUpdate(damageAmount);
+        GameManager.Instance.healthUpdate(damageAmount);
     }
     public bool Grounded()
     {

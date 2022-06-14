@@ -72,7 +72,9 @@ public class PlayerController : MonoBehaviour
         if (Input.GetMouseButtonDown(0)) // on Mouse Left click Cherry will Spawn
         {
             animation.Attack();
-            GameObject.Find("GameManager").GetComponent<GameManager>().CherryUpdate(-1);
+            //GameObject.Find("GameManager").GetComponent<GameManager>().CherryUpdate(-1);
+            GameManager.Instance.CherryUpdate(-1);
+
         }
     }
         private void FixedUpdate()

@@ -56,6 +56,7 @@ public class Cherry : MonoBehaviour
             GameObject temp = collision.gameObject;
             temp.GetComponent<GameStateController>().KillSpider();
             GameObject.Find("GameManager").GetComponent<GameManager>().ScoreUpdate(10);
+            GameManager.Instance.ScoreUpdate(10);
             GetComponent<Rigidbody>().useGravity = true;
         }
     }

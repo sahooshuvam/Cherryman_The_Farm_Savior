@@ -19,9 +19,23 @@ public class GameManager : MonoBehaviour
     public Text healthText;
     public Text cherryCountText;
     public Text enemyCountText;
-
-
+    
     GameObject cherryman;
+
+    public static GameManager Instance;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+            Destroy(gameObject);
+    }
+
+
     private void Start()
     {
         scoreText.text = score.ToString();
